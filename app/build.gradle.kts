@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    kotlin("plugin.serialization") version "1.9.0"
 }
 
 android {
@@ -66,4 +67,7 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+    implementation("io.github.jan-tennert.supabase:postgrest-kt:0.7.6")
+    implementation("io.ktor:ktor-client-cio:2.3.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0-RC")
 }
