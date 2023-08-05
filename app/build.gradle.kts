@@ -1,12 +1,16 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    kotlin("plugin.serialization") version "1.9.0"
+    kotlin("plugin.serialization") version "1.8.0"
 }
 
 android {
     namespace = "com.deumolo.android_supabase_example"
     compileSdk = 33
+
+    packagingOptions {
+        exclude ("META-INF/versions/9/previous-compilation-data.bin")
+    }
 
     defaultConfig {
         applicationId = "com.deumolo.android_supabase_example"
