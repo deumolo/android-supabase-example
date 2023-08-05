@@ -17,6 +17,9 @@ import kotlinx.coroutines.launch
 import androidx.lifecycle.lifecycleScope
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.postgrest.postgrest
+import io.github.jan.supabase.gotrue.GoTrue
+import io.github.jan.supabase.gotrue.gotrue
+import io.github.jan.supabase.gotrue.providers.builtin.Email
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,13 +43,22 @@ class MainActivity : ComponentActivity() {
             val client = getClient()
             val supabaseResponse = client.postgrest["users"].select()
             val data = supabaseResponse.decodeList<User>()
-            println("Supabase Data: " + data)
+            try {
+                val registrationResponse = client.gotrue.signUpWith(Email) {
+                    email = "example125@email.com"
+                    password = "example-password"
+                }
+                println("User registered successfully !")
+            } catch (e: Throwable) {
+                println("An error occurred: ${e.message}")
+            }
         }
     }
 
     private fun getClient(): SupabaseClient {
         return createSupabaseClient(supabaseUrl ="https://kodfvjtjbdmffllfslyu.supabase.co",
             supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtvZGZ2anRqYmRtZmZsbGZzbHl1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODkzODkwOTgsImV4cCI6MjAwNDk2NTA5OH0.OJeKMAKuEKZ8rV_Xp243ofttqyVEFPfUDrnSs7E_4Cw") {
+            install(GoTrue)
             install(Postgrest)
         }
     }
