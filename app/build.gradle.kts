@@ -23,6 +23,7 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        multiDexEnabled = true
     }
 
     buildTypes {
@@ -35,6 +36,14 @@ android {
         }
     }
     compileOptions {
+        // Flag to enable support for the new language APIs
+
+        // For AGP 4.1+
+        isCoreLibraryDesugaringEnabled = true
+        // For AGP 4.0
+        // coreLibraryDesugaringEnabled = true
+
+        // Sets Java compatibility to Java 8
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
@@ -73,6 +82,7 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     implementation("io.ktor:ktor-client-cio:2.3.3")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0-RC")
-    implementation("io.github.jan-tennert.supabase:postgrest-kt:0.7.6")
-    implementation("io.github.jan-tennert.supabase:gotrue-kt:0.7.6")
+    implementation("io.github.jan-tennert.supabase:postgrest-kt:1.2.0")
+    implementation("io.github.jan-tennert.supabase:gotrue-kt:1.2.0")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.2.2")
 }

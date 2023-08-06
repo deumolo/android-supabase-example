@@ -43,14 +43,17 @@ class MainActivity : ComponentActivity() {
             val client = getClient()
             val supabaseResponse = client.postgrest["users"].select()
             val data = supabaseResponse.decodeList<User>()
+            var newUserEmail = "newemail@gmail.com"
             try {
                 val registrationResponse = client.gotrue.signUpWith(Email) {
-                    email = "example125@email.com"
+                    email = newUserEmail
                     password = "example-password"
                 }
-                println("User registered successfully !")
-            } catch (e: Throwable) {
-                println("An error occurred: ${e.message}")
+
+            println("New user $newUserEmail registered")
+
+            } catch (e: NoClassDefFoundError) {
+                println("An error occurred : $e")
             }
         }
     }
